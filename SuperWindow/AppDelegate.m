@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "SuperWindow.h"
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +18,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    UIWindow *window = [[SuperWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
+    self.window = window;
+    [self.window makeKeyAndVisible];
+    
+    ViewController *vc = [[ViewController alloc] initWithNibName:nil bundle:nil];
+    self.window.rootViewController = vc;
+    
     return YES;
 }
 
