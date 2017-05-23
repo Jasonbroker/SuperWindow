@@ -10,6 +10,6 @@
 
 @interface SuperWindow : UIWindow
 
-
+@property(nullable, nonatomic, strong) UIViewController *debugViewController;
 
 @end
