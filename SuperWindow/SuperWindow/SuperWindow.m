@@ -31,9 +31,12 @@
     [self addSubview:_debugView];
     _debugView.hidden = YES;
     // 监听截屏事件
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(userDidTakeScreenshot:)
-                                                 name:UIApplicationUserDidTakeScreenshotNotification object:nil];
+    self.captureScreenShootMotion = YES;
+}
+
+- (void)dealloc {
+    // 取消截屏监听
+    [self removeScreenShootObserving];
 }
 
 - (void)setDebugViewController:(UIViewController *)debugViewController {
@@ -64,4 +67,37 @@
     }  
     return;  
 }
+
+#pragma mark - notification
+// 收到用户截屏
+- (void)userDidTakeScreenshot:(NSNotification *)notification {
+    if (self.captureScreenShootMotion && [self.screenShootDelegate respondsToSelector:@selector(superWindow:didReceiveScreenShoot:)]) {
+        extern CGImageRef UIGetScreenImage();
+        UIImage *image = [UIImage imageWithCGImage:UIGetScreenImage()];
+        [self.screenShootDelegate superWindow:self
+                        didReceiveScreenShoot:image];
+    }
+}
+
+#pragma mark - helper
+
+- (void)removeScreenShootObserving {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)screenShootObserving {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidTakeScreenshot:)
+                                                 name:UIApplicationUserDidTakeScreenshotNotification object:nil];
+}
+
+#pragma mark setter getter
+
+- (void)setCaptureScreenShootMotion:(BOOL)captureScreenShootMotion {
+    if (_captureScreenShootMotion != captureScreenShootMotion) {
+        _captureScreenShootMotion = captureScreenShootMotion;
+        _captureScreenShootMotion ? [self captureScreenShootMotion] : [self removeScreenShootObserving];
+    }
+}
+
 @end
