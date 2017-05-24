@@ -40,7 +40,11 @@
 }
 
 - (void)setDebugViewController:(UIViewController *)debugViewController {
-    
+    if (_debugViewController != debugViewController) {
+        _debugViewController = debugViewController;
+        
+        
+    }
 }
 
 - (void)setRootViewController:(UIViewController *)rootViewController {
