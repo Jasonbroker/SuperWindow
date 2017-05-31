@@ -8,6 +8,20 @@
 
 #import "SuperWindow.h"
 
+@interface SNUIDebuggingInformationOverlay : UIWindow
+
+@end
+
+@implementation SNUIDebuggingInformationOverlay
+
+@end
+
+#define SuppressPerformSelectorLeakWarning(Stuff) \
+    _Pragma("clang diagnostic push") \
+    _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+        Stuff; \
+    _Pragma("clang diagnostic pop")
+
 @implementation SuperWindow {
     UIView *_debugView;
 }
@@ -32,6 +46,12 @@
     _debugView.hidden = YES;
     // 监听截屏事件
     self.captureScreenShootMotion = YES;
+    // 激活 UIDebuggingInformationOverlay
+    // http://ryanipete.com/blog/ios/swift/objective-c/uidebugginginformationoverlay/
+    Class overlayClass = NSClassFromString(@"UIDebuggingInformationOverlay");
+    SuppressPerformSelectorLeakWarning(
+        [overlayClass performSelector:@selector(prepareDebuggingOverlay)];
+    )
 }
 
 - (void)dealloc {
@@ -41,7 +61,10 @@
 
 - (void)setDebugViewController:(UIViewController *)debugViewController {
     if (_debugViewController != debugViewController) {
+        // remove the old debug view from window.
+        [_debugViewController.view removeFromSuperview];
         _debugViewController = debugViewController;
+        [self addSubview:_debugViewController.view];
         
         
     }
@@ -76,10 +99,10 @@
 // 收到用户截屏
 - (void)userDidTakeScreenshot:(NSNotification *)notification {
     if (self.captureScreenShootMotion && [self.screenShootDelegate respondsToSelector:@selector(superWindow:didReceiveScreenShoot:)]) {
-        extern CGImageRef UIGetScreenImage();
-        UIImage *image = [UIImage imageWithCGImage:UIGetScreenImage()];
-        [self.screenShootDelegate superWindow:self
-                        didReceiveScreenShoot:image];
+//        extern CGImageRef UIGetScreenImage();
+//        UIImage *image = [UIImage imageWithCGImage:UIGetScreenImage()];
+//        [self.screenShootDelegate superWindow:self
+//                        didReceiveScreenShoot:image];
     }
 }
 
@@ -103,5 +126,15 @@
         _captureScreenShootMotion ? [self captureScreenShootMotion] : [self removeScreenShootObserving];
     }
 }
+
+@end
+
+@interface DebugViewController : UIViewController
+
+@end
+
+@implementation DebugViewController
+
+
 
 @end
