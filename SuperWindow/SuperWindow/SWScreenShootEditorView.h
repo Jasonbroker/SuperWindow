@@ -10,4 +10,13 @@
 
 @interface SWScreenShootEditorView : UIView
 
+/**
+ a designated method which can create a editor view with an original image.
+
+ @param frame view frame
+ @param image original image which can be modified then.
+ */
+- (instancetype)initWithFrame:(CGRect)frame
+          screenShoot:(UIImage *)image;
+
 @end

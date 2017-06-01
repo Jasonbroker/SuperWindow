@@ -7,6 +7,7 @@
 //
 
 #import "SuperWindow.h"
+#import "DebugViewController.h"
 
 @interface SNUIDebuggingInformationOverlay : UIWindow
 
@@ -23,7 +24,7 @@
     _Pragma("clang diagnostic pop")
 
 @implementation SuperWindow {
-    UIView *_debugView;
+//    UIView *_debugView;
 }
 
 - (void)awakeFromNib {
@@ -40,11 +41,8 @@
 }
 
 - (void)commonInit {
-    _debugView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    _debugView.backgroundColor = [UIColor whiteColor];
-    [self addSubview:_debugView];
-    _debugView.hidden = YES;
-    
+    self.debugViewController = [[DebugViewController alloc] initWithNibName:nil bundle:nil];
+//    self.debugViewController.view.hidden = YES;
     // 默认监听截屏事件
     self.captureScreenShootMotion = YES;
     
@@ -65,7 +63,9 @@
     if (_debugViewController != debugViewController) {
         // remove the old debug view from window.
         [_debugViewController.view removeFromSuperview];
+        
         _debugViewController = debugViewController;
+        _debugViewController.view.frame = self.frame;
         [self addSubview:_debugViewController.view];
         
         
@@ -74,7 +74,7 @@
 
 - (void)setRootViewController:(UIViewController *)rootViewController {
     [super setRootViewController:rootViewController];
-    [self bringSubviewToFront:_debugView];
+    [self bringSubviewToFront:self.debugViewController.view];
 }
 
 // 监听摇一摇手势
@@ -92,7 +92,7 @@
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (event.subtype == UIEventSubtypeMotionShake) { // 判断是否是摇动结束
-        _debugView.hidden = !_debugView.hidden;
+        self.debugViewController.view.hidden = !self.debugViewController.view;
     }  
     return;  
 }
@@ -134,15 +134,5 @@
         _captureScreenShootMotion ? [self captureScreenShootMotion] : [self removeScreenShootObserving];
     }
 }
-
-@end
-
-@interface DebugViewController : UIViewController
-
-@end
-
-@implementation DebugViewController
-
-
 
 @end

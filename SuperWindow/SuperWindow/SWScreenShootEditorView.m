@@ -19,7 +19,18 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        _screenShootImageView = [[UIImageView alloc] initWithFrame:CGRectInset(frame, 0, -50)];
+        _screenShootImageView.contentMode = UIViewContentModeScaleAspectFit;
+        [self addSubview:_screenShootImageView];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+                  screenShoot:(UIImage *)image {
+    self = [self initWithFrame:frame];
+    if (self) {
+        _screenShootImageView.image = image;
     }
     return self;
 }
