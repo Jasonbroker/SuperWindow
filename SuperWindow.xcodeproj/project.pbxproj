@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		967FF9BE1EE045D00055F57C /* DebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 967FF9BD1EE045D00055F57C /* DebugViewController.m */; };
+		967FF9C11EE04A8E0055F57C /* SWScreenShootEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 967FF9C01EE04A8E0055F57C /* SWScreenShootEditorView.m */; };
 		96EF0A5A1ED317DB00378AA5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EF0A591ED317DB00378AA5 /* main.m */; };
 		96EF0A5D1ED317DB00378AA5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EF0A5C1ED317DB00378AA5 /* AppDelegate.m */; };
 		96EF0A601ED317DB00378AA5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EF0A5F1ED317DB00378AA5 /* ViewController.m */; };
@@ -19,6 +20,8 @@
 /* Begin PBXFileReference section */
 		967FF9BC1EE045D00055F57C /* DebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugViewController.h; sourceTree = "<group>"; };
 		967FF9BD1EE045D00055F57C /* DebugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugViewController.m; sourceTree = "<group>"; };
+		967FF9BF1EE04A8E0055F57C /* SWScreenShootEditorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWScreenShootEditorView.h; sourceTree = "<group>"; };
+		967FF9C01EE04A8E0055F57C /* SWScreenShootEditorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWScreenShootEditorView.m; sourceTree = "<group>"; };
 		96EF0A551ED317DB00378AA5 /* SuperWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96EF0A591ED317DB00378AA5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		96EF0A5B1ED317DB00378AA5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -88,6 +91,8 @@
 			children = (
 				96EF0A701ED3196D00378AA5 /* SuperWindow.h */,
 				96EF0A711ED3196D00378AA5 /* SuperWindow.m */,
+				967FF9BF1EE04A8E0055F57C /* SWScreenShootEditorView.h */,
+				967FF9C01EE04A8E0055F57C /* SWScreenShootEditorView.m */,
 				967FF9BC1EE045D00055F57C /* DebugViewController.h */,
 				967FF9BD1EE045D00055F57C /* DebugViewController.m */,
 			);
@@ -170,6 +175,7 @@
 				96EF0A5A1ED317DB00378AA5 /* main.m in Sources */,
 				96EF0A721ED3196D00378AA5 /* SuperWindow.m in Sources */,
 				967FF9BE1EE045D00055F57C /* DebugViewController.m in Sources */,
+				967FF9C11EE04A8E0055F57C /* SWScreenShootEditorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
