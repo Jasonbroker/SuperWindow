@@ -44,8 +44,10 @@
     _debugView.backgroundColor = [UIColor whiteColor];
     [self addSubview:_debugView];
     _debugView.hidden = YES;
-    // 监听截屏事件
+    
+    // 默认监听截屏事件
     self.captureScreenShootMotion = YES;
+    
     // 激活 UIDebuggingInformationOverlay
     // http://ryanipete.com/blog/ios/swift/objective-c/uidebugginginformationoverlay/
     Class overlayClass = NSClassFromString(@"UIDebuggingInformationOverlay");
@@ -99,11 +101,17 @@
 // 收到用户截屏
 - (void)userDidTakeScreenshot:(NSNotification *)notification {
     if (self.captureScreenShootMotion && [self.screenShootDelegate respondsToSelector:@selector(superWindow:didReceiveScreenShoot:)]) {
-//        extern CGImageRef UIGetScreenImage();
-//        UIImage *image = [UIImage imageWithCGImage:UIGetScreenImage()];
-//        [self.screenShootDelegate superWindow:self
-//                        didReceiveScreenShoot:image];
+        [self.screenShootDelegate superWindow:self didReceiveScreenShoot:[self imageFromView]];
     }
+}
+
+- (UIImage *)imageFromView {
+    UIGraphicsBeginImageContext(self.frame.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [self.layer renderInContext:context];
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return theImage;
 }
 
 #pragma mark - helper
