@@ -8,6 +8,14 @@
 
 #import "DebugViewController.h"
 
+@interface DebugCell : UITableViewCell
+
+@end
+
+@implementation DebugCell
+
+@end
+
 @interface DebugViewController ()
 
 @end
