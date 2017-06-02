@@ -41,10 +41,14 @@
 }
 
 - (void)commonInit {
+    
     self.debugViewController = [[DebugViewController alloc] initWithNibName:nil bundle:nil];
-//    self.debugViewController.view.hidden = YES;
+    self.debugViewController.view.hidden = YES;
     // 默认监听截屏事件
     self.captureScreenShootMotion = YES;
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    v.backgroundColor = [UIColor greenColor];
+    [self addSubview:v];
     
     // 激活 UIDebuggingInformationOverlay
     // http://ryanipete.com/blog/ios/swift/objective-c/uidebugginginformationoverlay/
@@ -67,14 +71,14 @@
         _debugViewController = debugViewController;
         _debugViewController.view.frame = self.frame;
         [self addSubview:_debugViewController.view];
-        
-        
     }
 }
 
 - (void)setRootViewController:(UIViewController *)rootViewController {
     [super setRootViewController:rootViewController];
-    [self bringSubviewToFront:self.debugViewController.view];
+    // after`setRootViewController` called, the window will remove all views
+    // which have the same size of the window.
+    [self addSubview:_debugViewController.view];
 }
 
 // 监听摇一摇手势
@@ -92,7 +96,7 @@
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (event.subtype == UIEventSubtypeMotionShake) { // 判断是否是摇动结束
-        self.debugViewController.view.hidden = !self.debugViewController.view;
+        self.debugViewController.view.hidden = !self.debugViewController.view.hidden;
     }  
     return;  
 }
