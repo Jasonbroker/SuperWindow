@@ -10,6 +10,11 @@
 
 static NSString *const cellId = @"cellId";
 
+typedef NS_ENUM(NSInteger, DebugCellStyle) {
+    DebugCellStyleNormal,
+    DebugCellStyleCompact
+};
+
 @interface DebugCollectionViewFlowLayout : UICollectionViewFlowLayout
 
 @end
@@ -36,19 +41,24 @@ static NSString *const cellId = @"cellId";
 
 @end
 
-@implementation DebugViewController
+@implementation DebugViewController {
+    CGFloat cellWidth;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.layout = [[DebugCollectionViewFlowLayout alloc] init];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:self.layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectOffset(CGRectInset(self.view.frame, 0, 32), 0, 32) collectionViewLayout:self.layout];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.collectionView.backgroundColor = [UIColor lightTextColor];
     [self.view addSubview:self.collectionView];
     
     [self.collectionView registerClass:[DebugCell class] forCellWithReuseIdentifier:cellId];
+    
+    //cell width and height
+    
 }
 
 #pragma mark ---- UICollectionViewDataSource
@@ -115,11 +125,9 @@ static NSString *const cellId = @"cellId";
 
 // 使copy和paste有效
 - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender {
-    if ([NSStringFromSelector(action) isEqualToString:@"copy:"] || [NSStringFromSelector(action) isEqualToString:@"paste:"])
-    {
+    if ([NSStringFromSelector(action) isEqualToString:@"copy:"] || [NSStringFromSelector(action) isEqualToString:@"paste:"]) {
         return YES;
     }
-    
     return NO;
 }
 

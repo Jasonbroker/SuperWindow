@@ -46,9 +46,6 @@
     self.debugViewController.view.hidden = YES;
     // 默认监听截屏事件
     self.captureScreenShootMotion = YES;
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    v.backgroundColor = [UIColor greenColor];
-    [self addSubview:v];
     
     // 激活 UIDebuggingInformationOverlay
     // http://ryanipete.com/blog/ios/swift/objective-c/uidebugginginformationoverlay/
