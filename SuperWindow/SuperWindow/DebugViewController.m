@@ -8,6 +8,14 @@
 
 #import "DebugViewController.h"
 
+@interface DebugCollectionViewFlowLayout : UICollectionViewFlowLayout
+
+@end
+
+@implementation DebugCollectionViewFlowLayout
+
+@end
+
 @interface DebugCell : UITableViewCell
 
 @end
