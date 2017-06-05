@@ -29,6 +29,23 @@ typedef NS_ENUM(NSInteger, DebugCellStyle) {
 
 @implementation DebugCell
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.layer.cornerRadius = 5;
+        self.backgroundColor = [UIColor whiteColor];
+        self.layer.shadowOffset = CGSizeMake(0, 5);
+        self.layer.shadowColor = [UIColor colorWithWhite:0 alpha:1].CGColor;
+        self.layer.shadowOpacity = 0.1f;
+        self.layer.shadowRadius = 5.f;
+
+        
+        
+        
+    }
+    return self;
+}
+
 @end
 
 @interface DebugViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
@@ -39,10 +56,21 @@ typedef NS_ENUM(NSInteger, DebugCellStyle) {
 
 @property (nonatomic, strong)NSArray *dataArray;
 
+@property (nonatomic, assign)DebugCellStyle presentStyle;
+
 @end
 
 @implementation DebugViewController {
-    CGFloat cellWidth;
+    CGFloat _cellWidth;
+    CGFloat _padding;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.presentStyle = DebugCellStyleNormal;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -153,6 +181,23 @@ typedef NS_ENUM(NSInteger, DebugCellStyle) {
         _dataArray = @[@"重置APP", @"清除浏览器缓存", @"清除UserDefault", @"清除所有缓存",@"清除浏览器缓存",@"文件浏览器",@"自定义功能"];
     }
     return _dataArray;
+}
+
+- (void)setPresentStyle:(DebugCellStyle)presentStyle {
+    if (presentStyle != _presentStyle) {
+        _presentStyle = presentStyle;
+        switch (presentStyle) {
+            case DebugCellStyleNormal:
+                
+                break;
+            case DebugCellStyleCompact:
+                
+                break;
+            default:
+                break;
+        }
+        
+    }
 }
 
 @end
