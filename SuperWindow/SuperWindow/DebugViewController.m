@@ -188,7 +188,11 @@ typedef NS_ENUM(NSInteger, DebugCellStyle) {
         _presentStyle = presentStyle;
         switch (presentStyle) {
             case DebugCellStyleNormal:
-                
+                CGFloat width = CGRectGetWidth(self.view.frame);
+                if (width) {
+                    
+                }
+                _cellWidth = CGRectGetWidth(self.view.frame);
                 break;
             case DebugCellStyleCompact:
                 
