@@ -56,7 +56,6 @@
 }
 
 - (void)dealloc {
-    // 取消截屏监听
     [self removeScreenShootObserving];
 }
 
@@ -78,7 +77,7 @@
     [self addSubview:_debugViewController.view];
 }
 
-// 监听摇一摇手势
+// listen shake motion
 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
         NSLog(@"开始摇动");
