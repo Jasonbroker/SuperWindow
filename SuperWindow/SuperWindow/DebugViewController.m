@@ -27,7 +27,9 @@ typedef NS_ENUM(NSInteger, DebugCellStyle) {
 
 @end
 
-@implementation DebugCell
+@implementation DebugCell {
+    UILabel *_titleLabel;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -39,7 +41,7 @@ typedef NS_ENUM(NSInteger, DebugCellStyle) {
         self.layer.shadowOpacity = 0.1f;
         self.layer.shadowRadius = 5.f;
 
-        
+        _titleLabel = 
         
         
     }
@@ -76,6 +78,15 @@ typedef NS_ENUM(NSInteger, DebugCellStyle) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    CATextLayer *textLayer = [[CATextLayer alloc] init];
+    textLayer.string = @"调试模式";
+    textLayer.fontSize = 18;
+    textLayer.position = CGPointMake(CGRectGetWidth(self.view.bounds) / 2, 22);
+    textLayer.bounds = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 44);
+    textLayer.alignmentMode = kCAAlignmentCenter;
+    textLayer.contentsScale = [UIScreen mainScreen].scale;
+    [self.view.layer addSublayer:textLayer];
+    
     self.layout = [[DebugCollectionViewFlowLayout alloc] init];
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectOffset(CGRectInset(self.view.frame, 0, 32), 0, 32) collectionViewLayout:self.layout];
     self.collectionView.dataSource = self;
@@ -100,7 +111,7 @@ typedef NS_ENUM(NSInteger, DebugCellStyle) {
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     DebugCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor purpleColor];
+    
     return cell;
 }
 

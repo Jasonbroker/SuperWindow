@@ -26,7 +26,7 @@
 /**
  a customized view controller which can be shown when the custom config button pressed.
  */
-@property(nonatomic, strong) UIViewController *customConfigViewController;
+@property(nonatomic, strong) UIViewController * _Nullable customConfigViewController;
 
 @property(nullable, nonatomic, weak)id <SuperWindowCaptureScreenShootDelegate> screenShootDelegate;
 
